@@ -1,0 +1,118 @@
+body{
+  background-color: black;
+  background: url("../images/background.jpeg");
+  background-repeat: repeat;
+  background-image:radial-gradient();
+  max-width: 1200px;
+  max-height: 700px;
+}
+header{
+  background-color: black;
+  width: 1200px;
+  height:70px;
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  border-top: 10px;
+  padding-top: 30px;
+  border:15px;
+  border-style:dotted;
+  border-color: orange;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.container{
+margin-left: 139px;
+background: url("../images/background.jpg");
+width: 960px;
+height:580px;
+background-color: black;
+border:15px;
+border-style:dotted;
+border-color: orange;
+margin-top: 20px;
+}
+
+.subcontainer{
+
+  width: 840px;
+  height:240px;
+  margin-left: 40px;
+  border:15px;
+  border-style:dotted;
+  border-color: orange;
+  margin-top: 20px;
+  background-color: transparent;
+
+}
+.subContainer2{
+  text-align: center;
+  color: white;
+  font-size: 35px;
+  padding-top: 10px;
+  width: 440px;
+  height:auto;
+  margin-left: 25%;
+  border:15px;
+  border-style:dotted;
+  border-color: orange;
+  margin-top: 20px;
+  background-color: transparent;
+}
+.button {
+  font-size: 30px;
+  color: white;
+  position:relative;
+  margin-top: 2%;
+  margin-left: 45%;
+  width: 200px;
+  height: 80px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color: darkorange;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 3px #7a7b7e;
+}
+
+.button:hover {
+background-color: orange;
+box-shadow: 0 4.5px #b0afb4;
+}
+
+.button:active {
+  color: orange;
+  background-color: yellow;
+  box-shadow: 0 5px #666;
+  transform: translateY(3px);
+}
+
+.buttonAnswer {
+  font-size: 30px;
+  color: white;
+  position:relative;
+  margin-top: 10px;
+  margin-left: 2%;
+  width: 400px;
+  height: 80px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color: darkorange;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 3px #7a7b7e;
+}
+.buttonAnswer:hover {
+background-color: orange;
+box-shadow: 0 4.5px #b0afb4;
+}
+
+.buttonAnswer:active {
+  color: orange;
+  background-color: yellow;
+  box-shadow: 0 5px #666;
+  transform: translateY(3px);
+}
