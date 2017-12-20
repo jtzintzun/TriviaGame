@@ -1,13 +1,14 @@
 var divsIds = ['subContainer1', 'subContainer2', 'subContainer3']
-var seconds = 5
+var seconds = 5;
 var numberOfGames = 0;
 var wins = 0;
 var lost = 0;
 var outOfTimeCounter = 0;
-var timer
-var timer2
+var timer;
+var timer2;
 var availableQuestionsObjects = [];
 var questionPlaying;
+var answer;
 
 // creating the object
 function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer) {
@@ -47,12 +48,22 @@ function creatingDivs() {
     divs.addClass("border")
   }
   creatingButtons()
+  // --Answer click event---------------------------------------
+  $('.buttonAnswer').on("click", function(e) {
+    console.log("BUTTON ANSWER CLICK EVENT");
+    var values = $(this).val();
+    answer = parseInt(values)
+    console.log('answer button value: ' + answer);
+    answerVerification()
+  });
+  // --End answer click event-------------------------------------
 }
 
 // ----------------------------------------------------------
 function creatingButtons() {
   for (var i = 0; i < 4; i++) {
     var button = $('<button>');
+    button.attr('value', [i + 1]);
     button.attr('id', "buttonPosition" + [i + 1]);
     $('#subContainer3').append(button)
     button.addClass("buttonAnswer")
@@ -61,15 +72,13 @@ function creatingButtons() {
 
 //----------------------------------------------------------------------------
 function selectQuestion() {
-  // if (numberOfGames > 4) {
-  //   gameOver();
-  // }
   console.log("SELECT QUESTION");
   var random = Math.floor(Math.random() * (availableQuestionsObjects.length));
   console.log("random number:" + random);
   questionPlaying = availableQuestionsObjects[random];
-  console.log("Question Playing: " + questionPlaying.question);
+  console.log("Question Playing: " + questionPlaying);
   availableQuestionsObjects.splice(random, 1);
+  console.log(availableQuestionsObjects);
 
 }
 
@@ -92,11 +101,11 @@ function countDown(seconds) {
   $("#subContainer1").html("Remainig Time: " + seconds);
   if (seconds < 1) {
     clearTimeout(timer);
-    var timer2 = setTimeout('outOfTime()', 1500);
+    timer2 = setTimeout('outOfTime()', 1500);
     return
   }
   seconds--;
-  var timer = setTimeout('countDown(' + seconds + ')', 1000);
+  timer = setTimeout('countDown(' + seconds + ')', 1000);
 }
 
 //----------------------------------------------------------------------------
@@ -104,11 +113,19 @@ function outOfTime() {
   console.log("OUT OF TIME");
   outOfTimeCounter++;
   console.log("Out of time counter: " + outOfTimeCounter);
-  $("#subContainer2").html("Correct Answer: " + questionPlaying.correctAnswer);
-  $("#subContainer2").attr("src", "assets/images/gif.gif")
-  var timer = setTimeout('playing()', 1500);
-  console.log("Number of Games: " + numberOfGames);
+  $("#subContainer1").html("Out of time!");
+  correctAnswer()
 }
+
+//----------------------------------------------------------------------------
+function correctAnswer() {
+
+  $("#subContainer2").html("The Correct Answer was: " + questionPlaying.correctAnswer);
+  $("#subContainer2").attr("src", "assets/images/gif.gif")
+  clearTimeout(timer)
+  timer = setTimeout('playing()', 3500);
+}
+
 
 //----------------------------------------------------------------------------
 function restartGame() {
@@ -123,17 +140,12 @@ function restartGame() {
 };
 
 //----------------------------------------------------------------------------
-
-$('.buttonAnswer').on("click", function(e) {
-  console.log("BUTTON ANSWER CLICK EVENT");
-  playing();
-});
-
-//----------------------------------------------------------------------------
 function playing() {
-  if (numberOfGames === 2) {
+  if (numberOfGames === 5) {
     gameOver()
   }
+  clearTimeout(timer);
+  clearTimeout(timer2);
   creatingDivs();
   restartQuestions();
   selectQuestion();
@@ -141,6 +153,24 @@ function playing() {
   numberOfGames++
   countDown(seconds)
 }
+//----------------------------------------------------------------------------
+function answerVerification() {
+  if (answer === questionPlaying.correctAnswer) {
+    wins++;
+    console.log('wins new value: ' + wins);
+    $("#subContainer1").html("Correct!");
+    $("#subContainer2").attr("src", "assets/images/gif.gif")
+    clearTimeout(timer)
+    timer = setTimeout('playing()', 3500);
+  } else {
+    lost++;
+    console.log('lost new value: ' + lost);
+    $("#subContainer1").html("Nope!");
+    correctAnswer();
+  }
+
+}
+
 
 //----------------------------------------------------------------------------
 function gameOver() {
@@ -150,8 +180,7 @@ function gameOver() {
   $("#buttonPosition1").html("Correct: " + wins)
   $("#buttonPosition2").html("Incorrect : " + lost)
   $("#buttonPosition3").html("Unaswer: " + outOfTimeCounter)
-  $("#buttonPosition4").html("Click to restar")
+  $("#buttonPosition4").html("Click to restart")
   debugger
-
 
 }
