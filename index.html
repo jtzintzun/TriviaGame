@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <script src="assets/javascript/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="assets/javascript/app.js"></script>
 
   <title>Trivia Game</title>
 </head>
@@ -33,7 +33,6 @@
 
     </div>
 
-
     <div class="subcontainer">
       <button id="buttonPosition1" class="buttonAnswer" value=1>Answer One</button>
       <button id="buttonPosition2" class="buttonAnswer" value=2>Answer Two</button>
@@ -47,8 +46,6 @@
 
   <!-- Script -->
   <script>
-    // <script type="text/javascript">
-    //  Start on click.
     var seconds = 5
     var numberOfGames = 0;
     var wins = 0;
@@ -68,9 +65,10 @@
       this.answer4 = answer4;
       this.correctAnswer = correctAnswer;
     }
+    //----------------------------------------------------------------------------
 
-    function selectQuestion(){
-      if (numberOfGames === 5) {
+    function selectQuestion() {
+      if (numberOfGames > 4) {
         gameOver();
       }
       console.log("SELECT QUESTION");
@@ -78,9 +76,10 @@
       console.log("random number:" + random);
       questionPlaying = availableQuestionsObjects[random];
       console.log("Question Playing: " + questionPlaying.question);
-      availableQuestionsObjects.splice(random,1);
+      availableQuestionsObjects.splice(random, 1);
 
     }
+    //----------------------------------------------------------------------------
 
 
     function restartQuestions() {
@@ -93,6 +92,7 @@
         new TriviaQuestion("question5", "Q5-Ans1", "Q5-Ans2", "Q5-Ans3", "Q5-Ans4", 1)
       ];
     };
+    //----------------------------------------------------------------------------
 
     function restartGame() {
       console.log("RESTART GAME");
@@ -102,61 +102,64 @@
       wins = 0
       lost = 0
       outOfTime = 0
-      console.log("Reset Status of: " + "wins: "+ wins + "Lost: " + lost + "Out of time: " +outOfTime);
+      console.log("Reset Status of: " + "wins: " + wins + "Lost: " + lost + "Out of time: " + outOfTime);
     };
-
-    $("#start").on("click", function() {
+    //----------------------------------------------------------------------------
+    $("#start").on("click", function(e) {
       console.log("CLICK EVENT");
       restartGame()
       restartQuestions()
       playing()
       // countDown(seconds)
     });
-//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     function countDown(seconds) {
       console.log("COUNTDOWN");
       console.log("SECONDS LEFT: " + seconds);
       $("#remainingTime").html("Remainig Time: " + seconds);
       if (seconds < 1) {
         clearTimeout(timer);
-        outOfTimeCounter++;
-        numberOfGames++;
-        console.log("Out Of Time Counter: " + outOfTimeCounter);
         var timer2 = setTimeout('outOfTimeF()', 1500);
-        return
+       return
       }
       seconds--;
       var timer = setTimeout('countDown(' + seconds + ')', 1000);
     }
-//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+
+    $(".buttonAnswer").on("click", function(e) {
+      console.log("BUTON ANSWER CLICK EVENT");
+
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      playing()
+    });
+
+    //----------------------------------------------------------------------------
 
     function outOfTimeF() {
       console.log("OUT OF TIME");
-    //  debugger
+      outOfTimeCounter++;
+      console.log("Out of time counter: " + outOfTimeCounter);
       $("#subContainer2Position1").html("Correct Answer: " + questionPlaying.correctAnswer);
       $("#subContainer2Position2").attr("src", "assets/images/gif.gif")
       var timer = setTimeout('cleanScreen()', 1500);
-    //  var timer = setTimeout('countDown(' + seconds + ')', 2000);
       console.log("Number of Games: " + numberOfGames);
     }
 
-    function gameOver() {
-      console.log("GAME OVER");
-      $("#remainingTime").html("GAME OVER")
-      var time = setTimeout('restartGame()', 1500);
-      return
-    }
+    //----------------------------------------------------------------------------
 
-    function cleanScreen(){
+    function cleanScreen() {
       console.log("CLEAN SCREEN");
       $("#subContainer2Position1").html("");
 
       for (var i = 1; i < 5; i++) {
 
-        $("#buttonPosition"+i).html("");
+        $("#buttonPosition" + i).html("");
       }
       playing();
     }
+    //----------------------------------------------------------------------------
 
     function printQuestion() {
       console.log("PRINT QUESTION");
@@ -168,20 +171,30 @@
       $("#buttonPosition4").html(questionPlaying.answer4);
 
     }
+    //----------------------------------------------------------------------------
 
-    function playing(){
+    function playing() {
       // if (numberOfGames === 5) {
       //   var timer= setTimeout('gameOver()',1600);
       // }
-
+      numberOfGames++;
+      console.log(numberOfGames);
       console.log("PLAYING");
       selectQuestion()
       printQuestion()
       countDown(seconds)
       console.log("available Questions Objects" + availableQuestionsObjects);
+
     }
 
+    //----------------------------------------------------------------------------
 
+    function gameOver() {
+      console.log("GAME OVER");
+      $("#remainingTime").html("GAME OVER")
+      // var time = setTimeout('restartGame()', 1500);
+      // return
+    }
   </script>
 
 
