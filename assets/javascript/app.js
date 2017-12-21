@@ -181,6 +181,11 @@ function gameOver() {
   $("#buttonPosition2").html("Incorrect : " + lost)
   $("#buttonPosition3").html("Unaswer: " + outOfTimeCounter)
   $("#buttonPosition4").html("Click to restart")
+
+  if (answer === 4) {
+    alert('restart the game');
+  }
   debugger
+  playing();
 
 }
