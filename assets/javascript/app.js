@@ -11,7 +11,7 @@ var answer;
 var clicked;
 
 // creating the object
-function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer, correctAnswerWord) {
+function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer, correctAnswerWord, gif) {
   this.question = question;
   this.answer1 = answer1;
   this.answer2 = answer2;
@@ -19,16 +19,17 @@ function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAns
   this.answer4 = answer4;
   this.correctAnswer = correctAnswer;
   this.correctAnswerWord = correctAnswerWord;
+  this.gif = gif;
 }
 
 function restartQuestions() {
   console.log("RESTART QUESTION");
   availableQuestionsObjects = [
-    new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1, "Milky Way"),
-    new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2, "Plankalkül"),
-    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3, "Mauna Kea"),
-    new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4, "Greenland shark"),
-    new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1, "35,797′")
+    new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1, "Milky Way","gif1.gif"),
+    new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2, "Plankalkül","gif2.gif"),
+    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3, "Mauna Kea","gif3.gif"),
+    new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4, "Greenland shark","gif4.jpg"),
+    new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1, "35,797′","gif5.gif")
   ];
 };
 
@@ -126,7 +127,8 @@ function outOfTime() {
 //-Print on screen the correct answer-------------------------------------------
 function correctAnswer() {
   $("#subContainer2").html('<h2>'+"The Correct Answer was: " + questionPlaying.correctAnswerWord +'</h2>');
-  $("#subContainer2").attr("src", "assets/images/gif.gif")
+  $("#mainContainer").attr("src", "assets/images/"+ questionPlaying.gif)
+  debugger
   clearTimeout(timer)
   timer = setTimeout('playing()', 3500);
 }
