@@ -1,3 +1,4 @@
+
 var divsIds = ['subContainer1', 'subContainer2', 'subContainer3']
 var seconds = 5;
 var numberOfGames = 0;
@@ -36,6 +37,7 @@ function restartQuestions() {
 // -On click event to Start the game--------------------------------------------
 $('#start').on("click", function(e) {
   console.log("Start Button - Clicked");
+  restartQuestions();
   playing();
 });
 
@@ -83,8 +85,9 @@ function selectQuestion() {
   console.log("random number:" + random);
   questionPlaying = availableQuestionsObjects[random];
   console.log("Question Playing: " + questionPlaying);
+  console.log("availableQuestionsObjects before splice: " + availableQuestionsObjects);
   availableQuestionsObjects.splice(random, 1);
-  console.log(availableQuestionsObjects);
+  console.log("availableQuestionsObjects after splice: " +  availableQuestionsObjects);
 
 }
 
@@ -106,6 +109,7 @@ function countDown(seconds) {
   console.log("SECONDS LEFT: " + seconds);
   $("#subContainer1").html('<h3>'+"Remainig Time: " + seconds +'</h3>');
   if (seconds < 0) {
+    console.log("seconds are less tha zero");
       outOfTime();
     return
   }
@@ -128,7 +132,6 @@ function outOfTime() {
 function correctAnswer() {
   $("#subContainer2").html('<h2>'+"The Correct Answer was: " + questionPlaying.correctAnswerWord +'</h2>');
   $("#mainContainer").attr("src", "assets/images/"+ questionPlaying.gif)
-  debugger
   clearTimeout(timer)
   timer = setTimeout('playing()', 3500);
 }
@@ -154,7 +157,7 @@ function playing() {
   } else {
     clearTimeout(timer);
     creatingDivs();
-    restartQuestions();
+  //  restartQuestions();
     selectQuestion();
     printQuestion();
     numberOfGames++
@@ -193,6 +196,7 @@ function initialPage() {
   $('#start').on("click", function(e) {
     console.log("Start Button - Clicked");
     restartGame();
+    restartQuestions();
     playing();
   });
 
