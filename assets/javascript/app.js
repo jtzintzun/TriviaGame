@@ -9,6 +9,7 @@ var timer2;
 var availableQuestionsObjects = [];
 var questionPlaying;
 var answer;
+var clicked;
 
 // creating the object
 function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer) {
@@ -23,21 +24,21 @@ function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAns
 function restartQuestions() {
   console.log("RESTART QUESTION");
   availableQuestionsObjects = [
-    new TriviaQuestion("question1", "Q1-Ans1", "Q1-Ans2", "Q1-Ans3", "Q1-Ans4", 1),
-    new TriviaQuestion("question2", "Q2-Ans1", "Q2-Ans2", "Q2-Ans3", "Q2-Ans4", 2),
-    new TriviaQuestion("question3", "Q3-Ans1", "Q3-Ans2", "Q3-Ans3", "Q3-Ans4", 3),
-    new TriviaQuestion("question4", "Q4-Ans1", "Q4-Ans2", "Q4-Ans3", "Q4-Ans4", 4),
-    new TriviaQuestion("question5", "Q5-Ans1", "Q5-Ans2", "Q5-Ans3", "Q5-Ans4", 1)
+    new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1),
+    new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2),
+    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3),
+    new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4),
+    new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1)
   ];
 };
 
-// ----------------------------------------------------------
+// -On click event to Start the game--------------------------------------------
 $('#start').on("click", function(e) {
   console.log("Start Button - Clicked");
   playing();
 });
 
-// ----------------------------------------------------------
+// -building the screen of the game----------------------------------------
 function creatingDivs() {
   $('#mainContainer').empty();
   for (var i = 0; i < divsIds.length; i++) {
@@ -51,15 +52,19 @@ function creatingDivs() {
   // --Answer click event---------------------------------------
   $('.buttonAnswer').on("click", function(e) {
     console.log("BUTTON ANSWER CLICK EVENT");
+    if (clicked === false){
     var values = $(this).val();
     answer = parseInt(values)
     console.log('answer button value: ' + answer);
     answerVerification()
+  } else{
+
+  }
   });
   // --End answer click event-------------------------------------
 }
 
-// ----------------------------------------------------------
+// -Bulding the four buttons for the posibles answes----------------------------
 function creatingButtons() {
   for (var i = 0; i < 4; i++) {
     var button = $('<button>');
@@ -70,7 +75,7 @@ function creatingButtons() {
   }
 }
 
-//----------------------------------------------------------------------------
+//-Choseing a random question---------------------------------------------------
 function selectQuestion() {
   console.log("SELECT QUESTION");
   var random = Math.floor(Math.random() * (availableQuestionsObjects.length));
@@ -82,7 +87,7 @@ function selectQuestion() {
 
 }
 
-//----------------------------------------------------------------------------
+//-printing on screen the seleted question--------------------------------------
 function printQuestion() {
   console.log("PRINT QUESTION");
   console.log("Question Playing: " + questionPlaying.question);
@@ -94,7 +99,7 @@ function printQuestion() {
 
 }
 
-//----------------------------------------------------------------------------
+//-Countdown counter---------------------------------------------------------
 function countDown(seconds) {
   console.log("COUNTDOWN");
   console.log("SECONDS LEFT: " + seconds);
@@ -112,14 +117,15 @@ function countDown(seconds) {
 function outOfTime() {
   console.log("OUT OF TIME");
   outOfTimeCounter++;
+  clicked = true;
   console.log("Out of time counter: " + outOfTimeCounter);
+  console.log('games counter' + numberOfGames);
   $("#subContainer1").html("Out of time!");
   correctAnswer()
 }
 
-//----------------------------------------------------------------------------
+//-Print on screen the correct answer-------------------------------------------
 function correctAnswer() {
-
   $("#subContainer2").html("The Correct Answer was: " + questionPlaying.correctAnswer);
   $("#subContainer2").attr("src", "assets/images/gif.gif")
   clearTimeout(timer)
@@ -127,7 +133,7 @@ function correctAnswer() {
 }
 
 
-//----------------------------------------------------------------------------
+//-Restart the parameters of the game-------------------------------------------
 function restartGame() {
   console.log("RESTART GAME");
   clearTimeout(timer);
@@ -139,11 +145,13 @@ function restartGame() {
   console.log("Reset Status of: " + "wins: " + wins + "Lost: " + lost + "Out of time: " + outOfTime);
 };
 
-//----------------------------------------------------------------------------
+//-Calls the necessaries functions to play the game-----------------------------
 function playing() {
+  console.log("PLAY GAME");
+  clicked = false;
   if (numberOfGames === 5) {
     gameOver()
-  }
+  } else {
   clearTimeout(timer);
   clearTimeout(timer2);
   creatingDivs();
@@ -152,11 +160,13 @@ function playing() {
   printQuestion();
   numberOfGames++
   countDown(seconds)
+  }
 }
-//----------------------------------------------------------------------------
+//-Verify the answer chosen by the player---------------------------------------
 function answerVerification() {
   if (answer === questionPlaying.correctAnswer) {
     wins++;
+    clicked = true;
     console.log('wins new value: ' + wins);
     $("#subContainer1").html("Correct!");
     $("#subContainer2").attr("src", "assets/images/gif.gif")
@@ -164,6 +174,7 @@ function answerVerification() {
     timer = setTimeout('playing()', 3500);
   } else {
     lost++;
+    clicked = true;
     console.log('lost new value: ' + lost);
     $("#subContainer1").html("Nope!");
     correctAnswer();
@@ -171,8 +182,17 @@ function answerVerification() {
 
 }
 
+//-building the Start screen-----------------------------------------------------
 
-//----------------------------------------------------------------------------
+function initialPage(){
+  $('#start').on("click", function(e) {
+    console.log("Start Button - Clicked");
+    playing();
+  });
+
+}
+
+//-building the Game Over screen--------------------------------------------------
 function gameOver() {
   creatingDivs()
   console.log("GAME OVER");
@@ -184,8 +204,8 @@ function gameOver() {
 
   if (answer === 4) {
     alert('restart the game');
-  }
-  debugger
-  playing();
+}else{
 
 }
+
+  };
