@@ -44,6 +44,18 @@ h3{
   border-color: orange;
   margin-top: 20px;
 }
+.borderTwo {
+  border: 15px;
+  border-style: dotted;
+  border-color: yellow;
+  margin-top: 20px;
+}
+.borderThree {
+  border: 15px;
+  border-style: dotted;
+  border-color: white;
+  margin-top: 20px;
+}
 
 /* ----------------------------------------------------- */
 
@@ -75,9 +87,6 @@ h3{
   margin-top: 20px;
   background-color: transparent;
   min-height: 140px;
-  /* text-align: center;
-  font-size: 30px;
-  color: white; */
 }
 
 .subContainerClass3 {
@@ -86,7 +95,7 @@ h3{
   margin-right: auto;
   margin-top: 20px;
   background-color: transparent;
-  min-height: 200px;
+  min-height: 100px;
   text-align: center;
 }
 
@@ -159,13 +168,11 @@ h3{
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
+  width: 320px;
   height: 80px;
   text-align: center;
-  cursor: pointer;
   outline: none;
-  background-color: darkblue;
+  background-color: blue;
   border: 5px;
   border-radius: 15px;
-  box-shadow: 0 3px #7a7b7e;
 }

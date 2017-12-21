@@ -206,7 +206,7 @@ function gameOver() {
   for (var i = 0; i < 3; i++) {
     var button = $('<button>');
     button.attr('id', "buttonPosition" + [i + 1]);
-    $('#subContainer3').append(button)
+    $('#subContainer2').append(button)
     button.addClass("buttonResults")
   }
   var button = $('<button>');
