@@ -5,30 +5,30 @@ var wins = 0;
 var lost = 0;
 var outOfTimeCounter = 0;
 var timer;
-var timer2;
 var availableQuestionsObjects = [];
 var questionPlaying;
 var answer;
 var clicked;
 
 // creating the object
-function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer) {
+function TriviaQuestion(question, answer1, answer2, answer3, answer4, correctAnswer, correctAnswerWord) {
   this.question = question;
   this.answer1 = answer1;
   this.answer2 = answer2;
   this.answer3 = answer3;
   this.answer4 = answer4;
   this.correctAnswer = correctAnswer;
+  this.correctAnswerWord = correctAnswerWord;
 }
 
 function restartQuestions() {
   console.log("RESTART QUESTION");
   availableQuestionsObjects = [
-    new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1),
-    new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2),
-    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3),
-    new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4),
-    new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1)
+    new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1, "Milky Way"),
+    new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2, "Plankalkül"),
+    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3, "Mauna Kea"),
+    new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4, "Greenland shark"),
+    new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1, "35,797′")
   ];
 };
 
@@ -52,14 +52,14 @@ function creatingDivs() {
   // --Answer click event---------------------------------------
   $('.buttonAnswer').on("click", function(e) {
     console.log("BUTTON ANSWER CLICK EVENT");
-    if (clicked === false){
-    var values = $(this).val();
-    answer = parseInt(values)
-    console.log('answer button value: ' + answer);
-    answerVerification()
-  } else{
+    if (clicked === false) {
+      var values = $(this).val();
+      answer = parseInt(values)
+      console.log('answer button value: ' + answer);
+      answerVerification()
+    } else {
 
-  }
+    }
   });
   // --End answer click event-------------------------------------
 }
@@ -91,7 +91,7 @@ function selectQuestion() {
 function printQuestion() {
   console.log("PRINT QUESTION");
   console.log("Question Playing: " + questionPlaying.question);
-  $("#subContainer2").html('<h1>' + questionPlaying.question + '</h1>');
+  $("#subContainer2").html('<h2>' + questionPlaying.question + '</h2>');
   $("#buttonPosition1").html(questionPlaying.answer1);
   $("#buttonPosition2").html(questionPlaying.answer2);
   $("#buttonPosition3").html(questionPlaying.answer3);
@@ -103,10 +103,9 @@ function printQuestion() {
 function countDown(seconds) {
   console.log("COUNTDOWN");
   console.log("SECONDS LEFT: " + seconds);
-  $("#subContainer1").html("Remainig Time: " + seconds);
-  if (seconds < 1) {
-    clearTimeout(timer);
-    timer2 = setTimeout('outOfTime()', 1500);
+  $("#subContainer1").html('<h3>'+"Remainig Time: " + seconds +'</h3>');
+  if (seconds < 0) {
+      outOfTime();
     return
   }
   seconds--;
@@ -120,13 +119,13 @@ function outOfTime() {
   clicked = true;
   console.log("Out of time counter: " + outOfTimeCounter);
   console.log('games counter' + numberOfGames);
-  $("#subContainer1").html("Out of time!");
+  $("#subContainer1").html('<h2>'+"Out Of Time!"+'</h2>');
   correctAnswer()
 }
 
 //-Print on screen the correct answer-------------------------------------------
 function correctAnswer() {
-  $("#subContainer2").html("The Correct Answer was: " + questionPlaying.correctAnswer);
+  $("#subContainer2").html('<h2>'+"The Correct Answer was: " + questionPlaying.correctAnswerWord +'</h2>');
   $("#subContainer2").attr("src", "assets/images/gif.gif")
   clearTimeout(timer)
   timer = setTimeout('playing()', 3500);
@@ -137,7 +136,6 @@ function correctAnswer() {
 function restartGame() {
   console.log("RESTART GAME");
   clearTimeout(timer);
-  clearTimeout(timer2);
   numberOfGames = 0
   wins = 0
   lost = 0
@@ -152,14 +150,13 @@ function playing() {
   if (numberOfGames === 5) {
     gameOver()
   } else {
-  clearTimeout(timer);
-  clearTimeout(timer2);
-  creatingDivs();
-  restartQuestions();
-  selectQuestion();
-  printQuestion();
-  numberOfGames++
-  countDown(seconds)
+    clearTimeout(timer);
+    creatingDivs();
+    restartQuestions();
+    selectQuestion();
+    printQuestion();
+    numberOfGames++
+    countDown(seconds)
   }
 }
 //-Verify the answer chosen by the player---------------------------------------
@@ -168,7 +165,7 @@ function answerVerification() {
     wins++;
     clicked = true;
     console.log('wins new value: ' + wins);
-    $("#subContainer1").html("Correct!");
+    $("#subContainer1").html('<h2>'+"Correct!"+'</h2>');
     $("#subContainer2").attr("src", "assets/images/gif.gif")
     clearTimeout(timer)
     timer = setTimeout('playing()', 3500);
@@ -176,7 +173,7 @@ function answerVerification() {
     lost++;
     clicked = true;
     console.log('lost new value: ' + lost);
-    $("#subContainer1").html("Nope!");
+    $("#subContainer1").html('<h2>'+"Nope!"+'</h2>');
     correctAnswer();
   }
 
@@ -184,9 +181,16 @@ function answerVerification() {
 
 //-building the Start screen-----------------------------------------------------
 
-function initialPage(){
+function initialPage() {
+  $('#mainContainer').empty();
+  var button = $('<button>');
+  button.attr('id', "start");
+  $('#mainContainer').append(button)
+  button.addClass("button")
+  button.text('Start')
   $('#start').on("click", function(e) {
     console.log("Start Button - Clicked");
+    restartGame();
     playing();
   });
 
@@ -194,18 +198,28 @@ function initialPage(){
 
 //-building the Game Over screen--------------------------------------------------
 function gameOver() {
-  creatingDivs()
+  $('#subContainer1').empty()
+  $('#subContainer2').empty()
+  $('#subContainer3').empty()
   console.log("GAME OVER");
-  $("#subContainer2").html("GAME OVER")
+  $("#subContainer1").html('<h3>' + "GAME OVER"+'</h3>');
+  for (var i = 0; i < 3; i++) {
+    var button = $('<button>');
+    button.attr('id', "buttonPosition" + [i + 1]);
+    $('#subContainer3').append(button)
+    button.addClass("buttonResults")
+  }
+  var button = $('<button>');
+  button.attr('id', "restart");
+  $('#subContainer3').append(button)
+  button.addClass("buttonAnswer")
   $("#buttonPosition1").html("Correct: " + wins)
   $("#buttonPosition2").html("Incorrect : " + lost)
   $("#buttonPosition3").html("Unaswer: " + outOfTimeCounter)
-  $("#buttonPosition4").html("Click to restart")
+  $("#restart").html("Click to restart")
 
-  if (answer === 4) {
-    alert('restart the game');
-}else{
-
-}
-
-  };
+  $('#restart').on("click", function(e) {
+    console.log("Restart Button - Clicked");
+    initialPage();
+  });
+};

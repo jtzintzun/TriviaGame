@@ -23,6 +23,21 @@ header {
   margin-left: 5%;
 }
 
+h2{
+  color: white;
+  font-size: 30px;
+  background-color: black;
+  margin-top: 10px;
+  text-align: center;
+}
+h3{
+  color: yellow;
+  font-size: 40px;
+  /* background-color: black; */
+  margin-top: 10px;
+  text-align: center;
+}
+
 .border {
   border: 15px;
   border-style: dotted;
@@ -60,9 +75,9 @@ header {
   margin-top: 20px;
   background-color: transparent;
   min-height: 140px;
-  text-align: center;
+  /* text-align: center;
   font-size: 30px;
-  color: white;
+  color: white; */
 }
 
 .subContainerClass3 {
@@ -135,4 +150,22 @@ header {
   background-color: yellow;
   box-shadow: 0 5px #666;
   transform: translateY(3px);
+}
+
+.buttonResults {
+  font-size: 30px;
+  color: white;
+  position: relative;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 80px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color: darkblue;
+  border: 5px;
+  border-radius: 15px;
+  box-shadow: 0 3px #7a7b7e;
 }
