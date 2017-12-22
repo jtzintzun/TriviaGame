@@ -131,11 +131,15 @@ function outOfTime() {
 //-Print on screen the correct answer-------------------------------------------
 function correctAnswer() {
   $("#subContainer2").html('<h2>'+"The Correct Answer was: " + questionPlaying.correctAnswerWord +'</h2>');
-  $("#mainContainer").attr("src", "assets/images/"+ questionPlaying.gif)
+  var image = $('<img>');
+  image.attr("src", "assets/images/"+ questionPlaying.gif);
+
+  $("#subContainer2").append(image)
+
+  // $("#mainContainer").attr("src", "assets/images/"+ questionPlaying.gif)
   clearTimeout(timer)
   timer = setTimeout('playing()', 3500);
 }
-
 
 //-Restart the parameters of the game-------------------------------------------
 function restartGame() {
@@ -157,7 +161,6 @@ function playing() {
   } else {
     clearTimeout(timer);
     creatingDivs();
-  //  restartQuestions();
     selectQuestion();
     printQuestion();
     numberOfGames++
