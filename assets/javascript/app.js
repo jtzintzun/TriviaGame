@@ -34,12 +34,7 @@ function restartQuestions() {
   ];
 };
 
-// -On click event to Start the game--------------------------------------------
-$('#start').on("click", function(e) {
-  console.log("Start Button - Clicked");
-  restartQuestions();
-  playing();
-});
+initialPage()
 
 // -building the screen of the game----------------------------------------
 function creatingDivs() {
@@ -109,8 +104,9 @@ function countDown(seconds) {
   console.log("SECONDS LEFT: " + seconds);
   $("#subContainer1").html('<h3>'+"Remainig Time: " + seconds +'</h3>');
   if (seconds < 0) {
-    console.log("seconds are less tha zero");
-      outOfTime();
+    console.log("seconds are less than zero");
+    //debugger
+      outOfTimeF();
     return
   }
   seconds--;
@@ -118,13 +114,15 @@ function countDown(seconds) {
 }
 
 //----------------------------------------------------------------------------
-function outOfTime() {
+function outOfTimeF() {
   console.log("OUT OF TIME");
-  outOfTimeCounter++;
   clicked = true;
+  outOfTimeCounter++;
   console.log("Out of time counter: " + outOfTimeCounter);
   console.log('games counter' + numberOfGames);
   $("#subContainer1").html('<h2>'+"Out Of Time!"+'</h2>');
+  console.log(clicked);
+debugger
   correctAnswer()
 }
 
@@ -143,8 +141,8 @@ function restartGame() {
   numberOfGames = 0
   wins = 0
   lost = 0
-  outOfTime = 0
-  console.log("Reset Status of: " + "wins: " + wins + "Lost: " + lost + "Out of time: " + outOfTime);
+  outOfTimeCounter = 0
+  console.log("Reset Status of: " + "wins: " + wins + "Lost: " + lost + "Out of time: " + outOfTimeCounter);
 };
 
 //-Calls the necessaries functions to play the game-----------------------------
@@ -232,5 +230,4 @@ function image(){
   var image = $('<img>');
   image.attr("src", "assets/images/"+ questionPlaying.gif);
   $("#subContainer2").append(image)
-  debugger
 }
