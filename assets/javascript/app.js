@@ -131,12 +131,7 @@ function outOfTime() {
 //-Print on screen the correct answer-------------------------------------------
 function correctAnswer() {
   $("#subContainer2").html('<h2>'+"The Correct Answer was: " + questionPlaying.correctAnswerWord +'</h2>');
-  var image = $('<img>');
-  image.attr("src", "assets/images/"+ questionPlaying.gif);
-
-  $("#subContainer2").append(image)
-
-  // $("#mainContainer").attr("src", "assets/images/"+ questionPlaying.gif)
+  image();
   clearTimeout(timer)
   timer = setTimeout('playing()', 3500);
 }
@@ -174,7 +169,7 @@ function answerVerification() {
     clicked = true;
     console.log('wins new value: ' + wins);
     $("#subContainer1").html('<h2>'+"Correct!"+'</h2>');
-    $("#subContainer2").attr("src", "assets/images/gif.gif")
+    image();
     clearTimeout(timer)
     timer = setTimeout('playing()', 3500);
   } else {
@@ -232,3 +227,9 @@ function gameOver() {
     initialPage();
   });
 };
+
+function image(){
+  var image = $('<img>');
+  image.attr("src", "assets/images/"+ questionPlaying.gif);
+  $("#subContainer2").append(image)
+}
