@@ -1,6 +1,6 @@
 
 var divsIds = ['subContainer1', 'subContainer2', 'subContainer3']
-var seconds = 5;
+var seconds = 25;
 var numberOfGames = 0;
 var wins = 0;
 var lost = 0;
