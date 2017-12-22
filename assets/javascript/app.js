@@ -232,4 +232,5 @@ function image(){
   var image = $('<img>');
   image.attr("src", "assets/images/"+ questionPlaying.gif);
   $("#subContainer2").append(image)
+  debugger
 }
