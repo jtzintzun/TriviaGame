@@ -1,7 +1,10 @@
 img{
   margin-top: 15px;
-  margin-left: 250px;
-
+  margin-left: 200px;
+  border: 10px;
+  border-style: dotted;
+  border-color: yellow;
+  margin-bottom: 15px;
 }
 
 body {

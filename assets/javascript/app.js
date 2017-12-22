@@ -28,7 +28,7 @@ function restartQuestions() {
   availableQuestionsObjects = [
     new TriviaQuestion("What is the name of the galaxy we live in?", "Milky Way", "Large Magellanic Cloud", "Andromeda", "Black Eye ", 1, "Milky Way","gif1.gif"),
     new TriviaQuestion("What was the first computer programming language?", "MATRIX MATH", "Plankalkül", "BASIC", "Borland Pascal", 2, "Plankalkül","gif2.gif"),
-    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3, "Mauna Kea","gif3.gif"),
+    new TriviaQuestion("what is the tallest mountain on earth?", "K2", "Mount Everest", "Mauna Kea", "Cho Oyu", 3, "Mauna Kea","gif3.jpg"),
     new TriviaQuestion("What is the oldest shark in the world?", "hammerhead shark", "bull shark", "white shark", "Greenland shark", 4, "Greenland shark","gif4.jpg"),
     new TriviaQuestion("How deep is the pacific ocean?", "35,797′", "27,841′", "26,401′", "23,740′", 1, "35,797′","gif5.gif")
   ];
